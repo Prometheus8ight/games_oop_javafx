@@ -2,38 +2,37 @@ package ru.job4j.puzzle;
 
 public class Win {
     public static boolean check(int[][] board) {
-        return checkHorizontal(board) || checkVertical(board);
-    }
-
-    public static boolean checkHorizontal(int[][] board) {
-        boolean isTrue = false;
-        for (int i = 0; i < board.length; i++) {
-            if (board[i][0] == 1) {
-                isTrue = true;
-                for (int j = 1; j < board[i].length; j++) {
-                    if (board[i][j] != 1) {
-                        isTrue = false;
+            boolean result = false;
+            for (int i = 0; i < board.length; i++) {
+                if (board[i][i] == 1) {
+                    if (monoHorizontal(board, i) || monoVertical(board, i)) {
+                        result = true;
                         break;
                     }
                 }
             }
+            return result;
         }
-        return isTrue;
-    }
 
-    public static boolean checkVertical(int[][] board) {
-        boolean isTrue = false;
-        for (int i = 0; i < board[0].length; i++) {
-            if (board[0][i] == 1) {
-                isTrue = true;
-                for (int j = 1; j < board.length; j++) {
-                    if (board[j][i] != 1) {
-                        isTrue = false;
-                        break;
-                    }
+        public static boolean monoHorizontal(int[][] board, int row) {
+            boolean result = true;
+            for (int i = 0; i < board[row].length; i++) {
+                if (board[row][i] != 1) {
+                    result = false;
+                    break;
                 }
             }
+            return result;
         }
-        return isTrue;
-    }
+
+        public static boolean monoVertical(int[][] board, int column) {
+            boolean result = true;
+            for (int i = 0; i < board.length; i++) {
+                if (board[i][column] != 1) {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }
 }
